@@ -10,12 +10,9 @@ export class LoginPage {
     this.page = page;
   }
 
-  async getLoginLocator(field: keyof LoginSelectors): Promise<Locator> {
-    this.selector = (
-      await this.getSelectors<LoginSelectors>(URLS.loginSelectors)
-    )[field];
-
-    return this.page.locator(this.selector);
+  async fillLoginForm(email: string, password: string): Promise<void> {
+    await (await this.getLoginLocator("email")).fill(email);
+    await (await this.getLoginLocator("password")).fill(password);
   }
 
   async getDashboardLocator(field: keyof DashboardSelectors): Promise<Locator> {
@@ -25,27 +22,28 @@ export class LoginPage {
     return this.page.locator(this.selector);
   }
 
-  async fillLoginForm(email: string, password: string) {
-    await (await this.getLoginLocator("email")).fill(email);
-    await (await this.getLoginLocator("password")).fill(password);
+  async getLoginLocator(field: keyof LoginSelectors): Promise<Locator> {
+    this.selector = (
+      await this.getSelectors<LoginSelectors>(URLS.loginSelectors)
+    )[field];
+    return this.page.locator(this.selector);
   }
 
-  async submitLogin() {
-    await (await this.getLoginLocator("login")).click();
-  }
-
-  async submitLogout() {
-    await (await this.getDashboardLocator("logout")).click();
-  }
-
-  async loginAsValidUser(email: string, password: string) {
+  async loginAsValidUser(email: string, password: string): Promise<void> {
     await this.fillLoginForm(email, password);
     await this.submitLogin();
   }
 
+  async submitLogin(): Promise<void> {
+    await (await this.getLoginLocator("login")).click();
+  }
+
+  async submitLogout(): Promise<void> {
+    await (await this.getDashboardLocator("logout")).click();
+  }
+
   private async getSelectors<T>(url: string): Promise<T> {
     const response = await this.page.request.get(url);
-
     const json = await response.json();
     return json as T;
   }

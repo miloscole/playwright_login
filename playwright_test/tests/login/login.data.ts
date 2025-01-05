@@ -10,12 +10,6 @@ export const DATA = {
   invalidEmail: "invalid.email",
 };
 
-export const URLS = {
-  newSession: "/session/new",
-  loginSelectors: "/login_selectors",
-  dashboardSelectors: "/dashboard_selectors",
-};
-
 export const INVALID_SCENARIOS = [
   { email: "", password: "", description: "empty fields" },
   { email: DATA.existingUser.email, password: "", description: "only email" },
@@ -35,3 +29,9 @@ export const INVALID_SCENARIOS = [
     description: "wrong email/right password",
   },
 ];
+
+export const URLS = {
+  newSession: "/session/new",
+  loginSelectors: "/login_selectors",
+  dashboardSelectors: "/dashboard_selectors",
+};
