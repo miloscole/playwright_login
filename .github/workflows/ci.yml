@@ -1,0 +1,58 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [main, test-workflow]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Ruby
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+
+      # Install Rails dependencies
+      - name: Install Rails dependencies
+        run: |
+          cd rails_login
+          bundle install
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Install Playwright dependencies
+      - name: Install Playwright dependencies
+        working-directory: playwright_test
+        run: npm ci
+
+      # Install Chromium browser - TODO: Add browser caching for faster runs
+      - name: Install Chromium browser
+        working-directory: playwright_test
+        run: npx playwright install chromium
+
+      # Run E2E tests
+      - name: Run E2E tests
+        run: |
+          cd playwright_test
+          npm run e2e
+
+      # Upload Playwright report artifacts
+      - name: Upload Playwright report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright_test/playwright-report/
+          retention-days: 7
