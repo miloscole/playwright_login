@@ -1,0 +1,30 @@
+.flash-msg {
+  padding: var(--pico-spacing);
+  position: fixed;
+  z-index: 2;
+  right: var(--pico-spacing);
+  top: var(--pico-form-element-spacing-vertical);
+  border-radius: var(--pico-border-radius);
+}
+
+.alert-icon {
+  background: var(--pico-icon-invalid);
+  background-size: cover;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.notice-icon {
+  background: var(--pico-icon-valid);
+  background-size: cover;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 2px;
+}
+
+.close-icon {
+  background: var(--pico-icon-close);
+  background-size: cover;
+  width: 1.25rem;
+  height: 1.25rem;
+}

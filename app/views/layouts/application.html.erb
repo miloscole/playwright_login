@@ -20,5 +20,9 @@
   <body>
     <%= render 'shared/nav/header' %>
     <%= yield %>
+    <%= render 'shared/flash' %>
+    <h3>
+      <%= flash.inspect %>
+    </h3>
   </body>
 </html>

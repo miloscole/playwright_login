@@ -1,0 +1,15 @@
+<% flash.each do |key, value| %>
+  <div>
+    <div class="flash-bg flash-msg fade-in-fade-out" data-controller="flash">
+      <p class="flex-between">
+        <span class="<%=key%>-icon"></span>
+        <span><%= key == 'notice' ? 'Success!' : 'Error!' %></span>
+        <span class="pointer" data-action="click->flash#close">
+          &#10005;
+        </span>
+      </p>
+      <p> <%= value %> </p>
+      <progress value="0" max="100" data-flash-target="progress" />
+    </div>
+  </div>
+<% end %>

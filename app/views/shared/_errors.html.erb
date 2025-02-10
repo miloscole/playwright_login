@@ -1,0 +1,15 @@
+<% if obj.errors.any? %>
+  <div class="container">
+    <article class="flash-bg">
+      <h4 class="flex-between">
+        <%= pluralize(obj.errors.count, 'error') %> prohibited this <%= obj.model_name.param_key %> from being saved:
+        <span>&#128683;</span>
+      </h4>
+      <ul>
+        <% obj.errors.full_messages.each  do |error| %>
+          <li><%= error %></li>
+        <% end %>
+      </ul>
+    </article>
+  </div>
+<% end %>

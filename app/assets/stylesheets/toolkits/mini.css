@@ -2,6 +2,8 @@
   --sz-small: 0.5rem;
   --sz-medium: 1rem;
   --sz-large: 2rem;
+
+  --flash-color: var(--pico-mark-background-color);
 }
 
 /* Flexbox */
@@ -109,6 +111,20 @@
 
 /* Custom */
 
-.opacity {
-  opacity: 0.8;
+.flash-bg {
+  background-color: var(--flash-color);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+@keyframes fade-inout {
+  0% {opacity: 0.6;}
+  50% {opacity: 1;}
+  100% {opacity: 0;}
+}
+
+.fade-in-fade-out {
+  animation: fade-inout 5.2s;
 }
